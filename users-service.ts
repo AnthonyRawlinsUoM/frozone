@@ -1,7 +1,7 @@
-import {AfterRoutesInit, Injectable} from "@tsed/common";
+import { $log, AfterRoutesInit, Injectable} from "@tsed/common";
 import {TypeORMService} from "@tsed/typeorm";
 import {Connection} from "typeorm";
-import {User} from "../models/User";
+import {User} from "../entity/User";
 
 @Injectable()
 export class UsersService implements AfterRoutesInit {
@@ -12,7 +12,8 @@ export class UsersService implements AfterRoutesInit {
   }
 
   $afterRoutesInit() {
-    this.connection = this.typeORMService.get("mongoose")!; // get connection by name
+    $log.debug("Loading: Frozone Users");
+    this.connection = this.typeORMService.get("default")!; // get connection by name
   }
 
   async create(user: User): Promise<User> {

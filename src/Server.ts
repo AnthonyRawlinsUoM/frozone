@@ -1,15 +1,18 @@
-import { $log, ServerLoader, ServerSettings } from "@tsed/common";
+import { $log, GlobalAcceptMimesMiddleware, ServerLoader, ServerSettings } from "@tsed/common";
 import * as Path from "path";
 import "@tsed/typeorm";
+import "@tsed/swagger";
 import "@tsed/socketio"; // import socketio Ts.ED module
+
+import { RestController } from "./controllers/RestController";
 
 const rootDir = Path.resolve(__dirname);
 
 @ServerSettings({
     socketIO: {
         // ... see configuration
-        adapter: ,
-        origins: ,
+        // adapter: ,
+        // origins: ,
         path: '/socket.io'
     },
     typeorm: [
@@ -28,7 +31,7 @@ const rootDir = Path.resolve(__dirname);
             subscribers: [
                 `${__dirname}/subscriber/*{.ts,.js}`
             ],
-            cli": {
+            cli: {
                 "entitiesDir": "src/entity",
                 "migrationsDir": "src/migration",
                 "subscribersDir": "src/subscriber"
@@ -40,16 +43,24 @@ const rootDir = Path.resolve(__dirname);
     rootDir,
     acceptMimes: ["application/json"],
     mount: {
-        "/rest": "${rootDir}/controllers/current/**/*.js",
+        "/rest": RestController,
         "/rest/v1": [
-            "${rootDir}/controllers/v1/users/*.js",
-            "${rootDir}/controllers/v1/groups/**/*.ts", // support ts entry
+            "${rootDir}/controllers/v1/*.js",
+            "${rootDir}/controllers/v1/**/*.ts", // support ts entry
             // "!${rootDir}/controllers/v1/groups/old/*.ts", // support ts entry
         ]
-    }
+    },
+    swagger: [
+        {
+            path: "/api-docs"
+        }
+    ]
 })
 export class Server extends ServerLoader {
-    /**
+
+    constructor(settings) {
+      super(settings);
+    }    /**
      * This method let you configure the middleware required by your application to works.
      * @returns {Server}
      */
@@ -62,12 +73,13 @@ export class Server extends ServerLoader {
             compress = require('compression'),
             methodOverride = require('method-override');
 
-        // .use(GlobalAcceptMimesMiddleware)
+
 
         this
             .use(cookieParser())
             .use(compress({}))
             .use(methodOverride())
+            .use(GlobalAcceptMimesMiddleware)
             .use(bodyParser.json())
             .use(bodyParser.urlencoded({
                 extended: true

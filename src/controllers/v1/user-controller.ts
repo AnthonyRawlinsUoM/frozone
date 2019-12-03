@@ -5,13 +5,13 @@ import {Controller, Get, PathParams, MergeParams} from "@tsed/common";
 @Controller("/users")
 export class UserController {
 
-    @Get("/users")
+    @Get("/")
     getAll() {
         // return getManager().find(User);
         return [{"id": 1}]
     }
 
-    @Get("/users/:id")
+    @Get("/:id")
     async get(@PathParams("id") id: number) {
         // return getRepository(User).findOne(id);
         return {"id": 1, "type": "User"}
