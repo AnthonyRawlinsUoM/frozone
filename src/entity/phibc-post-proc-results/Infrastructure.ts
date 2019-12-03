@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class HouseLossWithRetroPerFire {
+export class Infrastructure {
   @PrimaryColumn('integer')
   scenario_id: number;
 
