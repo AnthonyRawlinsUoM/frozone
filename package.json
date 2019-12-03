@@ -1,7 +1,7 @@
 {
    "name": "Frozone",
    "version": "0.0.1",
-   "description": "Awesome project developed with TypeORM.",
+   "description": "RESTful API developed with ts.ED, Socket.IO, TypeORM, and REDIS.",
    "devDependencies": {
       "@types/node": "^8.10.59",
       "typescript": "^3.3.3333"
