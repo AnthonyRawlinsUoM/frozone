@@ -49,6 +49,7 @@
           "cookie-parser": "^1.4.4",
           "data-forge": "^1.7.7",
           "express": "^4.17.1",
+          "express-session": "^1.17.0",
           "jquery": "^3.4.1",
           "lodash": "^4.17.11",
           "materialize-css": "^1.0.0",
@@ -68,7 +69,7 @@
           "uuidv4": "^6.0.0"
      },
      "scripts": {
-         "audit": "npm audit > audit.txt",
+          "audit": "npm audit > audit.txt",
           "build": "npm run tsc",
           "start": "ts-node src/index.ts",
           "clean": "rimraf '{src,test}/**/*.{js,js.map}'",

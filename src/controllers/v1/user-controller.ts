@@ -1,20 +1,29 @@
-import {Controller, Get, PathParams, MergeParams} from "@tsed/common";
+import { PathParams, MergeParams, BodyParams, Controller, Get, Post } from "@tsed/common";
+import { ReturnsArray } from "@tsed/swagger";
+import { User } from "../../entity/User";
+import { UsersService } from "../../services/UsersService";
 // import { getManager, getRepository } from "typeorm";
-// import { User } from "../../entity/User";
 
 @Controller("/users")
 export class UserController {
 
+    constructor(private usersService: UsersService) { }
+
     @Get("/")
-    getAll() {
-        // return getManager().find(User);
-        return [{"id": 1}]
+    @ReturnsArray(User)
+    async getList(): Promise<User[]> {
+        return this.usersService.find();
     }
 
     @Get("/:id")
     async get(@PathParams("id") id: number) {
-        // return getRepository(User).findOne(id);
-        return {"id": 1, "type": "User"}
+        return this.usersService.findOne(id);
+        // return { "id": 1, "type": "User" }
+    }
+
+    @Post("/")
+    create(@BodyParams() user: User): Promise<User> {
+        return this.usersService.create(user);
     }
 
 }

@@ -4,11 +4,17 @@ import "@tsed/typeorm";
 import "@tsed/swagger";
 import "@tsed/socketio"; // import socketio Ts.ED module
 
+import {join} from "path";
 import { RestController } from "./controllers/RestController";
 
 const rootDir = Path.resolve(__dirname);
 
+const session = require("express-session");
 @ServerSettings({
+
+    statics: {
+        "/statics": join(__dirname, "..", "statics")
+    },
     socketIO: {
         // ... see configuration
         // adapter: ,
@@ -23,13 +29,13 @@ const rootDir = Path.resolve(__dirname);
             synchronize: true,
             logging: false,
             entities: [
-                `${__dirname}/entity/*{.ts,.js}`
+                `${__dirname}/entity/**/*{.ts,.js}`
             ],
             migrations: [
-                `${__dirname}/migrations/*{.ts,.js}`
+                `${__dirname}/migrations/**/*{.ts,.js}`
             ],
             subscribers: [
-                `${__dirname}/subscriber/*{.ts,.js}`
+                `${__dirname}/subscriber/**/*{.ts,.js}`
             ],
             cli: {
                 "entitiesDir": "src/entity",
@@ -59,7 +65,7 @@ const rootDir = Path.resolve(__dirname);
 export class Server extends ServerLoader {
 
     constructor(settings) {
-      super(settings);
+        super(settings);
     }    /**
      * This method let you configure the middleware required by your application to works.
      * @returns {Server}
@@ -75,11 +81,10 @@ export class Server extends ServerLoader {
 
 
 
-        this
+        this.use(GlobalAcceptMimesMiddleware)
             .use(cookieParser())
             .use(compress({}))
             .use(methodOverride())
-            .use(GlobalAcceptMimesMiddleware)
             .use(bodyParser.json())
             .use(bodyParser.urlencoded({
                 extended: true
