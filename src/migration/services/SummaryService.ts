@@ -1,6 +1,5 @@
 import { Service } from "@tsed/common";
 import { Series, DataFrame } from 'pandas-js';
-import * as z from 'zebras';
 
 @Service()
 export class SummaryService {
@@ -13,22 +12,54 @@ export class SummaryService {
 
         console.log(table);
 
-        const df = table;
-        let summary_table: Summary;
+        const df = new DataFrame([{x:1, y:1},{x:2, y:3},{x:2, y:4},{x:4, y:1},{x:4, y:3},{x:5, y:3}]);
 
-        for (let col of df) {
-          let col_data = z.getCol(col, df);
-          summary_table.columns.push(col);
-          summary_table.min.push(z.min(col_data));
-          summary_table.max.push(z.min(col_data));
-          summary_table.mean.push(z.min(col_data));
-          summary_table.median.push(z.min(col_data));
-          summary_table.std.push(z.min(col_data));
-          summary_table.count.push(z.min(col_data));
+        console.log(df.toString());
+        let medians = [];
+        let mins = [];
+        let maxes = [];
+
+        for (let col of df.columns) {
+          let col_data = df.get(col)._data;
+
+          mins.push(Math.min(...col_data));
+          maxes.push(Math.max(...col_data));
+          medians.push(await this.median([...col_data]));
         }
 
-        return summary_table;
+        return {
+          columns: df.columns,
+          min: mins,
+          max: maxes,
+          mean: df.mean()._data,
+          median: medians,
+          std: df.std()._data,
+          count: df.length
+        };
+
     }
+
+    async median(numbers: number[]): Promise<number> {
+
+      console.log(numbers);
+
+      // median of [3, 5, 4, 4, 1, 1, 2, 3] = 3
+      let median = 0;
+      let numsLen = numbers.length;
+      numbers.sort();
+
+      if (
+          numsLen % 2 === 0 // is even
+      ) {
+          // average of two middle numbers
+          median = (numbers[numsLen / 2 - 1] + numbers[numsLen / 2]) / 2;
+      } else { // is odd
+          // middle number only
+          median = numbers[(numsLen - 1) / 2];
+      }
+      console.log(median);
+      return median;
+  }
 }
 
 export class Summary {
