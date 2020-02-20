@@ -7,7 +7,29 @@ import "@tsed/socketio"; // import socketio Ts.ED module
 import {join} from "path";
 import { RestController } from "./controllers/RestController";
 
+const xml2js = require('xml2js');
+const fs = require('fs');
+const parser = new xml2js.Parser({ attrkey: "ATTR" });
+
 const rootDir = Path.resolve(__dirname);
+const dataDir = Path.join(rootDir, 'data');
+
+try {
+
+  // example: centralhigh_17sep2019.frappeator.proj
+  // settings.proj
+  let xml_string = fs.readFileSync(`${dataDir}/centralhigh_17sep2019.frappeator.proj`, "utf8");
+  parser.parseString(xml_string, function(error, result) {
+      if(error === null) {
+          console.log(result);
+      }
+      else {
+          console.log(error);
+      }
+  });
+} catch(err) {
+    console.warn(err);
+}
 
 const session = require("express-session");
 @ServerSettings({
@@ -44,7 +66,7 @@ const session = require("express-session");
             }
         }
     ],
-    httpPort: 8000,
+    httpPort: 8001,
     httpsPort: 8443,
     rootDir,
     acceptMimes: ["application/json"],

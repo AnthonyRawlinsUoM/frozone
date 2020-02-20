@@ -1,7 +1,7 @@
 import { PathParams, MergeParams, BodyParams, Controller, Get, Post } from "@tsed/common";
 import { ReturnsArray } from "@tsed/swagger";
 import { User } from "../../entity/User";
-import { UsersService } from "../../services/UsersService";
+import { UsersService } from "../../migration/services/UsersService";
 // import { getManager, getRepository } from "typeorm";
 
 @Controller("/users")

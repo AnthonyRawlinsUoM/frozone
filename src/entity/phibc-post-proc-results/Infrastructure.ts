@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import {Entity, Column, PrimaryColumn, PrimaryGeneratedColumn} from 'typeorm';
+import {Example, Description} from "@tsed/swagger";
+import {Minimum, Required, Property} from "@tsed/common";
 
 @Entity()
 export class Infrastructure {

@@ -10,10 +10,7 @@
             "node_modules/@types"
         ],
         "types": ["reflect-metadata", "node"],
-        "lib": [
-            "es2015",
-            "dom"
-        ],
+
         "allowSyntheticDefaultImports": true,
         "module": "commonjs",
         "moduleResolution": "node",

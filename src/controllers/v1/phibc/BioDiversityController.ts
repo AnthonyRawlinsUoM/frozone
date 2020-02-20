@@ -1,14 +1,19 @@
 import { PathParams, MergeParams, BodyParams, Controller, Get, Post } from "@tsed/common";
-import { ReturnsArray } from "@tsed/swagger";
+import { ReturnsArray, Returns } from "@tsed/swagger";
+import { SummaryService, Summary } from "../../../migration/services/SummaryService";
 import { BioDiversity } from "../../../entity/phibc-post-proc-results/BioDiversity";
-import { BioDiversityService } from "../../../services/BioDiversityService";
+import { BioDiversityService } from "../../../migration/services/BioDiversityService";
+import { Observable } from 'rxjs';
+
 // import { getManager, getRepository } from "typeorm";
 // import { User } from "../../entity/User";
 
 @Controller("/bio_diversity")
 export class BioDiversityController {
 
-    constructor(private es: BioDiversityService) { }
+    constructor(
+      private ss: SummaryService,
+      private es: BioDiversityService) { }
 
     @Get("/")
     @ReturnsArray(BioDiversity)
@@ -16,9 +21,15 @@ export class BioDiversityController {
         return this.es.find();
     }
 
-    @Get("/:id")
-    async get(@PathParams("id") id: number) {
-        return this.es.findOne(id);
+    // @Get("/:id")
+    // async get(@PathParams("id") id: number) {
+    //     return this.es.findOne(id);
+    // }
+
+    @Get("/:summary")
+    @ReturnsArray(Summary)
+    async getSummary(@PathParams("summary") summary: string): Promise<Summary> {
+      return this.es.find().then((res) => this.ss.summarize(res));
     }
 
 }
