@@ -6,7 +6,10 @@ import {Minimum, Required, Property} from "@tsed/common";
 export class BioDiversity {
 
     @Description('Database assigned id')
-    @PrimaryColumn('integer')
+    @PrimaryColumn()
+  _id: number;
+
+    @Column('integer')
     scenario_id: number;
 
     @Property()

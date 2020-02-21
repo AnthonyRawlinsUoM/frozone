@@ -18,6 +18,12 @@ export class CarbonController {
       return this.es.find();
   }
 
+  @Get("/summary/")
+  @ReturnsArray(Summary)
+  async getSummary(@PathParams("summary") summary: string): Promise<Summary> {
+    return this.es.find().then((res) => this.ss.summarize(res));
+  }
+
   @Get("/:id")
   async get(@PathParams("id") id: number) {
       return this.es.findOne(id);

@@ -48,6 +48,7 @@
           "consolidate": "^0.15.1",
           "cookie-parser": "^1.4.4",
           "data-forge": "^1.7.7",
+          "dataframe-js": "^1.4.3",
           "express": "^4.17.1",
           "express-session": "^1.17.0",
           "jquery": "^3.4.1",

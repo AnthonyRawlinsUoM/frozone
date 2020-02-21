@@ -1,8 +1,14 @@
 import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { Description } from '@tsed/swagger';
 
 @Entity()
 export class InfrastructurePerFire {
-  @PrimaryColumn('integer')
+
+  @Description('Database assigned id')
+  @PrimaryColumn()
+  _id: number;
+
+  @Column('integer')
   scenario_id: number;
 
   @Column('integer')

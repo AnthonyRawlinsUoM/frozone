@@ -47,9 +47,9 @@ const session = require("express-session");
         {
             name: "default",
             type: "sqlite",
-            database: "database.sqlite",
+            database: "database_test.sqlite",
             synchronize: true,
-            logging: false,
+            logging: true,
             entities: [
                 `${__dirname}/entity/**/*{.ts,.js}`
             ],

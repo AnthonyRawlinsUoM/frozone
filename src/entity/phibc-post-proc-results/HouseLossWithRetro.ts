@@ -4,7 +4,12 @@ import {Minimum, Required, Property} from "@tsed/common";
 
 @Entity()
 export class HouseLossWithRetro {
-    @PrimaryColumn('integer')
+
+  @Description('Database assigned id')
+  @PrimaryColumn()
+  _id: number;
+
+    @Column('integer')
     scenario_id: number;
 
     @Column('text')

@@ -16,10 +16,6 @@ export class BioDiversityService {
 
     async find(): Promise<BioDiversity[]> {
         let bds: any[] = await this.connection.manager.find(BioDiversity);
-        // bds.forEach((bd) => {});
-
-        // console.log("Loaded BioDiversity: ", bds);
-
         return bds;
     }
 

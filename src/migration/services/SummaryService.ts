@@ -1,5 +1,5 @@
-import { Service } from "@tsed/common";
-import { Series, DataFrame } from 'pandas-js';
+import { Service, Property, Required } from "@tsed/common";
+import { Series, DataFrame } from 'dataframe-js';
 
 @Service()
 export class SummaryService {
@@ -10,36 +10,42 @@ export class SummaryService {
         Summarizes the table and gives all the usual statistics in the usual format
         */
 
-        console.log(table);
+        const df = new DataFrame(table);
 
-        const df = new DataFrame([{x:1, y:1},{x:2, y:3},{x:2, y:4},{x:4, y:1},{x:4, y:3},{x:5, y:3}]);
-
-        console.log(df.toString());
-        let medians = [];
+        let columns = [];
         let mins = [];
         let maxes = [];
+        let means = [];
+        let medians = [];
+        let deviations = [];
 
-        for (let col of df.columns) {
-          let col_data = df.get(col)._data;
+        for (let col of df.listColumns()) {
+          // let col_data = df.stat.stats(col);
+          if (!col.includes('_id')) {
+            mins.push(df.stat.max(col));
+            maxes.push(df.stat.max(col));
+            means.push(df.stat.mean(col));
+            deviations.push(df.stat.sd(col));
+            medians.push(this.median(df.select(col).toArray()));
 
-          mins.push(Math.min(...col_data));
-          maxes.push(Math.max(...col_data));
-          medians.push(await this.median([...col_data]));
+            columns.push(col);
+          }
         }
 
         return {
-          columns: df.columns,
+          columns: columns,
           min: mins,
           max: maxes,
-          mean: df.mean()._data,
+          mean: means,
           median: medians,
-          std: df.std()._data,
-          count: df.length
+          std: deviations,
+          count: df.count()
         };
 
     }
 
-    async median(numbers: number[]): Promise<number> {
+
+    median(numbers: number[]): number {
 
       console.log(numbers);
 
@@ -63,11 +69,25 @@ export class SummaryService {
 }
 
 export class Summary {
+  @Property()
+  @Required()
   columns: string[];
+  @Property()
+  @Required()
   min: number[];
+  @Property()
+  @Required()
   max: number[];
+  @Property()
+  @Required()
   mean: number[];
+  @Property()
+  @Required()
   median: number[];
+  @Property()
+  @Required()
   std: number[];
-  count: number[];
+  @Property()
+  @Required()
+  count: number;
 }

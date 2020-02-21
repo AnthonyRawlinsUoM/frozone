@@ -6,7 +6,9 @@ import { Minimum, Required, Property } from "@tsed/common";
 export class PeopleHouseLoss {
 
   @Description('Database assigned id')
-  @PrimaryColumn('integer')
+  @PrimaryColumn()
+  _id: number;
+  @Column('integer')
   scenario_id: number;
 
   @Property()
@@ -33,7 +35,7 @@ export class PeopleHouseLoss {
   @Required()
   @Column('integer')
   houses_lost: number;
-  
+
   @Property()
   @Required()
   @Column('integer')

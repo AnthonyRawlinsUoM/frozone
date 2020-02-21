@@ -16,10 +16,6 @@ export class PeopleHouseLossService {
 
     async find(): Promise<PeopleHouseLoss[]> {
         let bds: any[] = await this.connection.manager.find(PeopleHouseLoss);
-        // bds.forEach((bd) => {});
-
-        // console.log("Loaded PeopleHouseLoss: ", bds);
-
         return bds;
     }
 

@@ -1,25 +1,38 @@
-import {Entity, Column, PrimaryColumn, PrimaryGeneratedColumn} from 'typeorm';
+import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { Description } from '@tsed/swagger';
+import { Property } from '@tsed/common';
 
 @Entity()
 export class GenAssetProb {
-    @PrimaryColumn('integer')
-    asset_id: number;
+  @Description('Database assigned id')
+  @PrimaryColumn()
+  _id: number;
 
-    @Column('text')
-    asset_group: string;
+  @Property()
+  @Column('integer')
+  asset_id: number;
 
-    @Column('text')
-    fire_impact_level: string;
+  @Property()
+  @Column('text')
+  asset_group: string;
 
-    @Column('text')
-    damage_level: string;
+  @Property()
+  @Column('text')
+  fire_impact_level: string;
 
-    @Column('real')
-    prob_mean: number;
+  @Property()
+  @Column('text')
+  damage_level: string;
 
-    @Column('real')
-    prob_median: number;
+  @Property()
+  @Column('real')
+  prob_mean: number;
 
-    @Column('real')
-    prob_wtdmean: number;
+  @Property()
+  @Column('real', { default: null, nullable: true })
+  prob_median: number;
+
+  @Property()
+  @Column('real', { default: null, nullable: true })
+  prob_wtdmean: number;
 }
