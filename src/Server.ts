@@ -22,6 +22,9 @@ try {
   parser.parseString(xml_string, function(error, result) {
       if(error === null) {
           console.log(result);
+
+
+
       }
       else {
           console.log(error);
@@ -47,7 +50,7 @@ const session = require("express-session");
         {
             name: "default",
             type: "sqlite",
-            database: "database_test.sqlite",
+            database: "db/database_test.sqlite",
             synchronize: true,
             logging: true,
             entities: [
@@ -100,8 +103,6 @@ export class Server extends ServerLoader {
             bodyParser = require('body-parser'),
             compress = require('compression'),
             methodOverride = require('method-override');
-
-
 
         this.use(GlobalAcceptMimesMiddleware)
             .use(cookieParser())
