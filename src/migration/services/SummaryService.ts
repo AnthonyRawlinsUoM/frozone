@@ -12,34 +12,28 @@ export class SummaryService {
 
         const df = new DataFrame(table);
 
-        let columns = [];
-        let mins = [];
-        let maxes = [];
-        let means = [];
-        let medians = [];
-        let deviations = [];
+        let index = [];
+        let columns = ['min', 'max', 'mean', 'median', 'std'];
+        let data = [];
 
-        for (let col of df.listColumns()) {
+        for (let idx of df.listColumns()) {
           // let col_data = df.stat.stats(col);
-          if (!col.includes('_id')) {
-            mins.push(df.stat.max(col));
-            maxes.push(df.stat.max(col));
-            means.push(df.stat.mean(col));
-            deviations.push(df.stat.sd(col));
-            medians.push(this.median(df.select(col).toArray()));
-
-            columns.push(col);
+          if (!idx.includes('_id')) {
+            data.push([
+              df.stat.min(idx),
+              df.stat.max(idx),
+              df.stat.mean(idx),
+              this.median(df.select(idx).toArray()),
+              df.stat.sd(idx)
+            ]);
+            index.push(idx);
           }
         }
 
         return {
           columns: columns,
-          min: mins,
-          max: maxes,
-          mean: means,
-          median: medians,
-          std: deviations,
-          count: df.count()
+          index: index,
+          data: data
         };
 
     }
@@ -54,11 +48,9 @@ export class SummaryService {
       let numsLen = numbers.length;
       numbers.sort();
 
-      if (
-          numsLen % 2 === 0 // is even
-      ) {
+      if ( numsLen % 2 === 0) {
           // average of two middle numbers
-          median = (numbers[numsLen / 2 - 1] + numbers[numsLen / 2]) / 2;
+          median = (numbers[(numsLen / 2) - 1] + numbers[numsLen / 2])  / 2;
       } else { // is odd
           // middle number only
           median = numbers[(numsLen - 1) / 2];
@@ -72,22 +64,13 @@ export class Summary {
   @Property()
   @Required()
   columns: string[];
+
   @Property()
   @Required()
-  min: number[];
+  index: string[];
+
   @Property()
   @Required()
-  max: number[];
-  @Property()
-  @Required()
-  mean: number[];
-  @Property()
-  @Required()
-  median: number[];
-  @Property()
-  @Required()
-  std: number[];
-  @Property()
-  @Required()
-  count: number;
+  data: any[];
+
 }

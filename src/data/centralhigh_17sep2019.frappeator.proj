@@ -7,40 +7,44 @@
   <frappe_exe_path>C:\dan\bin\Frappe.0.1.4.0\Frappe.exe</frappe_exe_path>
   <is_frost_multi_proj>true</is_frost_multi_proj>
   <concurrent_threads>9</concurrent_threads>
-  <frappe_project_template_file>
+  <templates>
+  <FrappeProjectTemplateFile>
 	<id>1</id>
     <path>C:\dan\proj\frappeator\frappe_templates\template_fire.frappe.proj</path>
-  </frappe_project_template_file>
-  <frappe_project_template_file>
+  </FrappeProjectTemplateFile>
+  <FrappeProjectTemplateFile>
 	<id>2</id>
     <path>C:\dan\proj\frappeator\frappe_templates\template_fire_landis.frappe.proj</path>
-  </frappe_project_template_file>   
-  <frappe_project_template_file>
+  </FrappeProjectTemplateFile>
+  <FrappeProjectTemplateFile>
 	<id>3</id>
     <path>C:\dan\proj\frappeator\frappe_templates\template_fire_landis_harvest.frappe.proj</path>
-  </frappe_project_template_file>  
-  <frappe_multi_project>
+  </FrappeProjectTemplateFile>
+</templates>
+    <multiparts>
+  <FrappeMultiProject>
 	<frost_output_results_dir_rel_path>fire_0pb</frost_output_results_dir_rel_path>
-	<frappe_project_file_id>1</frappe_project_file_id>	
-  </frappe_multi_project>
-  <frappe_multi_project>
+	<frappe_project_file_id>1</frappe_project_file_id>
+  </FrappeMultiProject>
+  <FrappeMultiProject>
 	<frost_output_results_dir_rel_path>fire_5pb</frost_output_results_dir_rel_path>
-	<frappe_project_file_id>1</frappe_project_file_id>	
-  </frappe_multi_project>
-  <frappe_multi_project>
+	<frappe_project_file_id>1</frappe_project_file_id>
+  </FrappeMultiProject>
+  <FrappeMultiProject>
 	<frost_output_results_dir_rel_path>fire_landis_0pb</frost_output_results_dir_rel_path>
-	<frappe_project_file_id>2</frappe_project_file_id>	
-  </frappe_multi_project>
-  <frappe_multi_project>
+	<frappe_project_file_id>2</frappe_project_file_id>
+  </FrappeMultiProject>
+  <FrappeMultiProject>
 	<frost_output_results_dir_rel_path>fire_landis_5pb</frost_output_results_dir_rel_path>
-	<frappe_project_file_id>2</frappe_project_file_id>	
-  </frappe_multi_project>
-  <frappe_multi_project>
+	<frappe_project_file_id>2</frappe_project_file_id>
+  </FrappeMultiProject>
+  <FrappeMultiProject>
 	<frost_output_results_dir_rel_path>fire_landis_harvest_0pb</frost_output_results_dir_rel_path>
-	<frappe_project_file_id>3</frappe_project_file_id>	
-  </frappe_multi_project>
-  <frappe_multi_project>
+	<frappe_project_file_id>3</frappe_project_file_id>
+  </FrappeMultiProject>
+  <FrappeMultiProject>
 	<frost_output_results_dir_rel_path>fire_landis_harvest_5pb</frost_output_results_dir_rel_path>
-	<frappe_project_file_id>3</frappe_project_file_id>	
-  </frappe_multi_project>    
+	<frappe_project_file_id>3</frappe_project_file_id>
+  </FrappeMultiProject>
+</multiparts>
 </frappeator_project>
