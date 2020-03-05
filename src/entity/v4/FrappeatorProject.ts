@@ -68,10 +68,10 @@ export class FrappeatorProject extends Project {
   // @Type(() => FrappeMultiProject)
   @Property()
   @Required()
-  @Expose() multiparts: FrappeMultiProject[];
+  @Expose() multiparts: Array<FrappeMultiProject>;
 
   // @Type(() => FrappeProjectTemplateFile)
   @Property()
   @Required()
-  @Expose() templates: FrappeProjectTemplateFile[];
+  @Expose() templates: Array<FrappeProjectTemplateFile>;
 }
