@@ -53,6 +53,7 @@
           "dataframe-js": "^1.4.3",
           "express": "^4.17.1",
           "express-session": "^1.17.0",
+          "glob": "^7.1.6",
           "jquery": "^3.4.1",
           "json2csv": "^4.5.4",
           "lodash": "^4.17.11",

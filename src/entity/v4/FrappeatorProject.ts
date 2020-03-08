@@ -1,4 +1,4 @@
-import { Project } from './Project';
+import { Project } from '../v1/Project';
 // https://www.npmjs.com/package/class-transformer
 import { Type, Expose, plainToClass } from "class-transformer";
 import { Property, Required } from '@tsed/common';

@@ -17,10 +17,12 @@ export class Server extends ServerLoader {
 
   constructor(settings) {
     super(settings);
-  }    /**
-     * This method let you configure the middleware required by your application to works.
-     * @returns {Server}
-     */
+  }
+
+  /**
+   * This method let you configure the middleware required by your application to works.
+   * @returns {Server}
+   */
   public $beforeRoutesInit(): void | Promise<any> {
 
     $log.debug("Bootstrapping Frozone Server...");
