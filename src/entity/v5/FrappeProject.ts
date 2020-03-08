@@ -3,6 +3,63 @@ import { Project } from '../v1/Project';
 import { Type, Expose, plainToClass } from "class-transformer";
 import { Property, Required } from '@tsed/common';
 import { Column } from 'typeorm';
+import { FrappeMultiProject } from '../v4/FrappeatorProject';
+
+
+
+export class HydroSettings {
+
+  @Property()
+  @Expose() run_hydro;
+
+  @Property()
+  @Expose() rusle_settings;
+}
+
+export class RusleSettings {
+
+  @Property()
+  @Expose() c_peak;
+
+  @Property()
+  @Expose() c_harvpeak;
+
+  @Property()
+  @Expose() xic_fire;
+
+  @Property()
+  @Expose() xik_fire;
+
+  @Property()
+  @Expose() xic_harv;
+
+  @Property()
+  @Expose() xik_harv;
+
+  @Property()
+  @Expose() k_fire_multiplier;
+
+  @Property()
+  @Expose() k_harv_multiplier;
+
+  @Property()
+  @Expose() r_climate;
+}
+
+export class SuccessionSettings {
+
+  @Property()
+  @Expose() landis_data_available;
+
+  @Property()
+  @Expose() harvest_data_available;
+
+  @Property()
+  @Expose() run_biomass;
+
+  @Property()
+  @Expose() run_harvest;
+}
 
 export class FrappeProject extends Project {
   @Expose() ATTR: Object;  // Minimum v5
@@ -74,60 +131,4 @@ export class FrappeProject extends Project {
   @Property()
   @Required()
   @Expose() succession_settings: SuccessionSettings;
-}
-
-
-
-export class HydroSettings {
-
-  @Property()
-  @Expose() run_hydro;
-
-  @Property()
-  @Expose() rusle_settings;
-}
-
-export class RusleSettings {
-
-  @Property()
-  @Expose() c_peak;
-
-  @Property()
-  @Expose() c_harvpeak;
-
-  @Property()
-  @Expose() xic_fire;
-
-  @Property()
-  @Expose() xik_fire;
-
-  @Property()
-  @Expose() xic_harv;
-
-  @Property()
-  @Expose() xik_harv;
-
-  @Property()
-  @Expose() k_fire_multiplier;
-
-  @Property()
-  @Expose() k_harv_multiplier;
-
-  @Property()
-  @Expose() r_climate;
-}
-
-export class SuccessionSettings {
-
-  @Property()
-  @Expose() landis_data_available;
-
-  @Property()
-  @Expose() harvest_data_available;
-
-  @Property()
-  @Expose() run_biomass;
-
-  @Property()
-  @Expose() run_harvest;
 }

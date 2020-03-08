@@ -18,13 +18,6 @@ const parser = new xml2js.Parser({ attrkey: "ATTR", explicitArray: false });
 const rootDir = Path.resolve(__dirname);
 const dataDir = `${__dirname}/data/`;
 
-
-const post_processing_types = [
-  'phibc_post_proc_results.sqlite',
-  'gma_post_proc_results.sqlite',
-  'hydro_machine_results.sqlite'
-];
-
 const connectionTemplate = {
   name: "default",
   type: "sqlite",
@@ -61,41 +54,24 @@ async function hydra() {
 
   for (let p of projects) {
     console.log(p);
-    for (const m of p.multiparts['FrappeMultiProject']) {
 
-      let conn = connectionTemplate;
+    let conn = connectionTemplate;
 
-      // This next line is an ASSUMPTION based on context in the XML file.
-      // Need to validate with the schema!
-      let weather_path = `${p.glaciator_output_results_root_dir_path.split('\\').pop()}`;
+    // This next line is an ASSUMPTION based on context in the XML file.
+    // Need to validate with the schema!
+    let weather_path = `${p.glaciator_output_results_root_dir_path.split('\\').pop()}`;
 
-      // The regime loop
-      const regime_paths = await findRegimeRuns(weather_path);
-      for (const regime_path of regime_paths) {
-        // The replicates loop
-        const replicates = await findReplicateRuns(regime_path);
-        for (const replicate of replicates) {
-          $log.debug(replicate);
-          console.log(replicate);
-          // This is where we begin looking for actual results databases
-
-          const path_to_db_store =  `${dataDir}${p.project_name}/${weather_path}/${m.frost_output_results_dir_rel_path}/${replicate}/post_processing_output/`;
-
-           for(const output of post_processing_types) {
-             conn.name = ''; // longwinded naming convention for indexing of database:
-             conn.database = path_to_db_store + output
-             // connection_strings.push(conn);
-             console.log(conn);
-           }
-        }
-      }
-    }
+    const path_to_db_store =  `${dataDir}${p.project_name}/${weather_path}/index.sqlite`;
+    conn.name = `${p.project_name}_${weather_path}`; // longwinded naming convention for indexing of database:
+    conn.database = path_to_db_store;
+    // connection_strings.push(conn);
+    console.log(conn);
+    connection_strings.push(conn);
   }
   // Now we attempt make and store connectins to these databases
   // This could potentially be a huge prospect.
-  const connections = await createConnections(connection_strings);
 
-  return connections;
+  return await createConnections(connection_strings);
 }
 
 
